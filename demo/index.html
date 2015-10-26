@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iconic Demo</title>
+    <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+        #textClear {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            bottom: 0;
+            height: 14px;
+            margin: auto;
+            font-size: 14px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        #textClear:hover {
+            color: #999;
+        }
+    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-sm-12">
+            <div class="row top-buffer">
+                <div class="col-lg-12">
+                    <div class="btn-group btn-group-justified">
+                        <input id="textBox" type="text" class="form-control" title="">
+                        <span id="textClear" class="glyphicon glyphicon-remove"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-lg-12" id="chart-col">
+                    <div id="iconBox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://rawgit.com/spencermountain/nlp_compromise/master/client_side/nlp.min.js"> </script>
+<script>
+    var typingTimeout = 1000;
+    var typingTimer;
+
+    var textBox = $("#textBox");
+    var iconBox = $("#iconBox");
+
+    $("#textClear").click(function(){
+        textBox.val("");
+    });
+
+    textBox.keydown(function (e) {
+        var key = e.which;
+        if (key == 13 || key == 3) updateIcon();
+        else clearTimeout(typingTimer);
+    });
+
+    textBox.keyup(function (e){
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(updateIcon, typingTimeout);
+    });
+
+    function updateIcon(){
+        iconBox.text(textBox.val());
+    }
+    //console.log(nlp.noun("sheep").pluralize());
+    //dinosaurs
+</script>
+</body>
+</html>
